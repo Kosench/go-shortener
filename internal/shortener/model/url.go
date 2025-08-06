@@ -1,8 +1,11 @@
 package model
 
+import "time"
+
 type URL struct {
-	Code     string `json:"code"`
-	Original string `json:"original"`
+	Code      string    `json:"code"`
+	Original  string    `json:"original"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type ShortenRequest struct {

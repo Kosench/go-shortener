@@ -37,7 +37,7 @@ func (h *ShortenerHandler) ShortenURL(c *gin.Context) {
 
 func (h *ShortenerHandler) RedirectURL(c *gin.Context) {
 	code := c.Param("code")
-	url, err := h.service.GetOriginalURL(code)
+	urlModel, err := h.service.GetOriginalURL(code)
 	if err != nil {
 		if errors.Is(err, repository.ErrNotFound) {
 			c.JSON(http.StatusNotFound, gin.H{"error": "URL not found"})
@@ -46,5 +46,5 @@ func (h *ShortenerHandler) RedirectURL(c *gin.Context) {
 		}
 		return
 	}
-	c.Redirect(http.StatusMovedPermanently, url)
+	c.Redirect(http.StatusMovedPermanently, urlModel.Original)
 }
